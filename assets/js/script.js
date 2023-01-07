@@ -88,14 +88,58 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+// Get user input for password length.
+function getPasswordLength() {
 
+  let passwordLength = 0;
 
-// Function to prompt user for password options
+  do {
+    const userInput = prompt("Enter the password length (min:10, max:64 characters)");
+    if (!userInput) throw "User cancelled password length input.";
+
+    passwordLength = Number.parseInt(userInput);
+
+  } while (Number.isNaN(passwordLength) || passwordLength < 10 || passwordLength > 64);
+
+  return passwordLength;
+}
+
+// Get user input for characters types.
+function getCharactersTypes() {
+
+  let charactersTypes = [];
+
+  while (!charactersTypes.length) {
+
+    if (confirm("Include special characters?")) {
+      charactersTypes = charactersTypes.concat(specialCharacters); 
+    }
+
+    if (confirm("Include numeric characters?")) {
+      charactersTypes = charactersTypes.concat(numericCharacters); 
+    }
+
+    if (confirm("Include lower cased characters?")) {
+      charactersTypes = charactersTypes.concat(lowerCasedCharacters); 
+    }
+
+    if (confirm("Include upper cased characters?")) {
+      charactersTypes = charactersTypes.concat(upperCasedCharacters); 
+    }
+  }
+
+  return charactersTypes;
+}
+
+// Function to prompt user for password options.
 function getPasswordOptions() {
   let passwordOptions = {
     length: 0,
     charatersTypes: []
   };
+  
+  passwordOptions.length = getPasswordLength();
+  passwordOptions.charatersTypes = getCharactersTypes();
 
   return passwordOptions;
 }
@@ -125,13 +169,18 @@ function writePassword(password) {
 
 // Event listener that handles the Generate Password click.
 function eventHandler() {
-  // Input
-  const passwordOptions = getPasswordOptions();
+  try {
 
-  // Output
-  const password = generatePassword(passwordOptions.length, passwordOptions.charatersTypes);
+    // Input
+    const passwordOptions = getPasswordOptions();
 
-  writePassword(password);
+    // Output
+    const password = generatePassword(passwordOptions.length, passwordOptions.charatersTypes);
+    writePassword(password); 
+
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // Add event listener to generate button
