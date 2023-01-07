@@ -1,9 +1,10 @@
-# bootcamp-week5-challenge
-Week 5 boot camp challenge exercise
+# Password Generator App
+
+Intermediate JavaScript: Password Generator
 
 ## Table of contents
 
-- [bootcamp-week5-challenge](#bootcamp-week5-challenge)
+- [Password Generator App](#password-generator-app)
   - [Table of contents](#table-of-contents)
   - [Overview](#overview)
     - [The challenge](#the-challenge)
@@ -17,43 +18,41 @@ Week 5 boot camp challenge exercise
   - [Author](#author)
   - [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
 ## Overview
+
+This week’s Challenge requires you to create an application that an employee can use to generate a random password based on criteria they’ve selected.
 
 ### The challenge
 
-Describe the challenge here
+This week’s challenge requires you to create an application that an employee can use to generate a random password based on criteria they’ve selected by modifying starter code. This app will run in the browser, and will feature dynamically updated HTML and CSS powered by JavaScript code that you write. It will have a clean and polished user interface that is responsive, ensuring that it adapts to multiple screen sizes.
+
+The password can include special characters. If you’re unfamiliar with these, see this [list of Password Special Characters from the OWASP Foundation](https://www.owasp.org/index.php/Password_special_characters).
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![Password Generator UI](./assets/../docs/assets/05-javascript-challenge-demo.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/technoveltyco/bootcamp-week5-challenge](https://github.com/technoveltyco/bootcamp-week5-challenge)
+- Live Site URL: [https://technoveltyco.github.io/bootcamp-week5-challenge/](https://technoveltyco.github.io/bootcamp-week5-challenge/)
 
 ## My process
 
+First, I went through a design phase of the data flow, pseudocode, and modelling the activity and sequence diagrams of the application in UML.
+
+![Password Generator activity diagram](./assets/../docs/assets/generate-password-activity-diagram.svg)
+
+![Password Generator sequence diagram](./assets/../docs/assets/generate-password-sequence-diagram.svg)
+
+You can check further details about the application design details at the [software design document](./assets/../docs/software-design.md).
+
 ### Built with
 
-- Semantic HTML5 markup
+- [UML 2.5.1](https://www.omg.org/spec/UML)
+- HTML5 markup
 - CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- Vanilla JavaScript
 
 ### What I learned
 
@@ -89,17 +88,14 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [PlantUML](https://plantuml.com/) - A simple tool to design and modelling using UML language.
+- [The Unified Modeling Language](https://www.uml-diagrams.org/) - Quick reference of the UML diagrams, with detailed syntax explanation and examples.
+- [W3Schools JavaScript Tutorial](https://www.w3schools.com/js/default.asp) - A convenient reference for JavaScript, Web APIs and several code snippet examples.
+- [MDN JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/javascript) - The main reference for JavaScript and Web APIs.
 
 ## Author
-  Your Name
-- Website - [your name or website url](https://www.your-site.com)
-- GitHub - [your GitHub username](https://github.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+  Daniel Rodriguez
+- GitHub - [Technoveltyco](https://github.com/technoveltyco)
 
 ## Acknowledgments
 
