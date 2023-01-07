@@ -88,9 +88,16 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+
+
 // Function to prompt user for password options
 function getPasswordOptions() {
+  let passwordOptions = {
+    length: 0,
+    charatersTypes: []
+  };
 
+  return passwordOptions;
 }
 
 // Function for getting a random element from an array
@@ -99,20 +106,33 @@ function getRandom(arr) {
 }
 
 // Function to generate password with user input
-function generatePassword() {
+function generatePassword(length, charactersTypes) {
+  let password = "";
 
+  return password;
 }
 
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
 
 // Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector('#password');
+function writePassword(password) {
+
+  const passwordText = document.querySelector('#password');
 
   passwordText.value = password;
 }
 
+// Event listener that handles the Generate Password click.
+function eventHandler() {
+  // Input
+  const passwordOptions = getPasswordOptions();
+
+  // Output
+  const password = generatePassword(passwordOptions.length, passwordOptions.charatersTypes);
+
+  writePassword(password);
+}
+
 // Add event listener to generate button
-generateBtn.addEventListener('click', writePassword);
+generateBtn.addEventListener('click', eventHandler);
