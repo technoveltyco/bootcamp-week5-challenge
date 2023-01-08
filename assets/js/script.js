@@ -204,11 +204,12 @@ function getPasswordOptions() {
  * 
  * @param {Array} arr 
  *    The array of character types.
- * @returns {Number}
- *    A random index between 0 and arr.length - 1.
+ * @returns {String}
+ *    A randomly character type from arr.
  */
 function getRandom(arr) {
-  return Math.floor(Math.random() * arr.length);
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
 }
 
 /**
@@ -227,8 +228,7 @@ function generatePassword(passwordLength, passwordCharactersTypes) {
 
   while (password.length < passwordLength) {
 
-    const index = getRandom(passwordCharactersTypes);
-    const character = passwordCharactersTypes[index];
+    const character = getRandom(passwordCharactersTypes);
 
     password += character;
   }
