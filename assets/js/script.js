@@ -88,18 +88,41 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+// Confirm to exit or continue Generate Password execution.
+function confirmGeneratePassword(output) {
+  const confirmMessage = `
+${output}
+
+Do you want to continue Generate Password ?
+`;
+
+  if (!confirm(confirmMessage)) {
+    throw "User cancelled Generate Password.";
+  }
+}
+
+// Validate password length.
+function validPasswordLength(length) {
+  return length && !Number.isNaN(length) && length >= 10 && length <= 64;
+}
+
 // Get user input for password length.
 function getPasswordLength() {
 
   let passwordLength = 0;
+  let isValidLength = false;
 
   do {
-    const userInput = prompt("Enter the password length (min:10, max:64 characters)");
-    if (!userInput) throw "User cancelled password length input.";
+    const userInput = prompt("Enter password length (min:10, max:64 characters)");
 
     passwordLength = Number.parseInt(userInput);
 
-  } while (Number.isNaN(passwordLength) || passwordLength < 10 || passwordLength > 64);
+    isValidLength = validPasswordLength(passwordLength);
+
+    if (!isValidLength) {
+      confirmGeneratePassword("The password length must be between 10 and 64 characters.");
+    }
+  } while (!isValidLength);
 
   return passwordLength;
 }
@@ -126,6 +149,10 @@ function getCharactersTypes() {
     if (confirm("Include upper cased characters?")) {
       charactersTypes = charactersTypes.concat(upperCasedCharacters); 
     }
+
+    if (!charactersTypes.length) {
+      confirmGeneratePassword("At least one character type must be selected.");
+    }
   }
 
   return charactersTypes;
@@ -151,6 +178,7 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword(passwordLength, passwordCharactersTypes) {
+
   let password = "";
 
   while (password.length < passwordLength) {
