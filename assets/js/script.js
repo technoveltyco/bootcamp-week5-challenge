@@ -88,7 +88,12 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-// Confirm to exit or continue Generate Password execution.
+/**
+ * Confirm to exit or continue Generate Password execution.
+ * 
+ * @param {String} output
+ *    An info message explaining what bring you to this state.
+ */
 function confirmGeneratePassword(output) {
   const confirmMessage = `
 ${output}
@@ -101,12 +106,24 @@ Do you want to continue Generate Password ?
   }
 }
 
-// Validate password length.
+/**
+ * Validates the password length.
+ * 
+ * @param {Number} length 
+ *    The password length value.
+ * @returns {Boolean} 
+ *    The valid password length flag.
+ */
 function validPasswordLength(length) {
   return length && !Number.isNaN(length) && length >= 10 && length <= 64;
 }
 
-// Get user input for password length.
+/**
+ * Gets the user input for password length.
+ * 
+ * @returns {Number}
+ *   The password length.
+ */
 function getPasswordLength() {
 
   let passwordLength = 0;
@@ -127,7 +144,13 @@ function getPasswordLength() {
   return passwordLength;
 }
 
-// Get user input for characters types.
+/**
+ * Gets the user input for characters types.
+ * 
+ * @returns {Array}
+ *   An array of characters from either 
+ *   specialCharacters, numericCharacters, lowerCasedCharacters, upperCasedCharacters
+ */
 function getCharactersTypes() {
 
   let charactersTypes = [];
@@ -158,7 +181,12 @@ function getCharactersTypes() {
   return charactersTypes;
 }
 
-// Function to prompt user for password options.
+/**
+ * Function to prompt user for password options.
+ * 
+ * @returns {Object}
+ *   The passwordOptions object.
+ */
 function getPasswordOptions() {
   let passwordOptions = {
     length: 0,
@@ -171,12 +199,28 @@ function getPasswordOptions() {
   return passwordOptions;
 }
 
-// Function for getting a random element from an array
+/**
+ * Function for getting a random element from an array.
+ * 
+ * @param {Array} arr 
+ *    The array of character types.
+ * @returns {Number}
+ *    A random index between 0 and arr.length - 1.
+ */
 function getRandom(arr) {
   return Math.floor(Math.random() * arr.length);
 }
 
-// Function to generate password with user input
+/**
+ * Function to generate password with user input.
+ * 
+ * @param {Number} passwordLength 
+ *    The user's password length input.
+ * @param {Array} passwordCharactersTypes 
+ *    The user's character types chosen.
+ * @returns {String}
+ *    A randonly generated password.
+ */
 function generatePassword(passwordLength, passwordCharactersTypes) {
 
   let password = "";
@@ -195,7 +239,12 @@ function generatePassword(passwordLength, passwordCharactersTypes) {
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
 
-// Write password to the #password input
+/**
+ * Write password to the #password input.
+ * 
+ * @param {String} password 
+ *    The generated password.
+ */
 function writePassword(password) {
 
   const passwordText = document.querySelector('#password');
@@ -203,7 +252,9 @@ function writePassword(password) {
   passwordText.value = password;
 }
 
-// Event listener that handles the Generate Password click.
+/**
+ * Event listener that handles the Generate Password click.
+ */
 function eventHandler() {
   try {
 
