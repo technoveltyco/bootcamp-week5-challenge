@@ -20,7 +20,7 @@
 * Length of password between 10 and 64 characters.
 * Characters types are alphanumeric and special characters defined in [list of Password Special Characters from the OWASP Foundation](https://www.owasp.org/index.php/Password_special_characters).
 * The user will have options to choose the lenght and types of characters of the password.
-* The program should validate that the password lenght matches the number of characters constraint, and also require that the user specificy at least one character type.
+* The program should validate password lenght characters constraint, and that the user specificy at least one character type.
 
 ## Data Flow Analysis
 
