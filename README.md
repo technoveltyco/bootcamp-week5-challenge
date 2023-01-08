@@ -11,8 +11,19 @@ Intermediate JavaScript: Password Generator
     - [Screenshot](#screenshot)
     - [Links](#links)
   - [My process](#my-process)
+    - [Data Flow Analysis](#data-flow-analysis)
+    - [Activity Diagram](#activity-diagram)
+    - [Pseudocode](#pseudocode)
+      - [Main workflow](#main-workflow)
+      - [Refinement: 2. Confirm and validate "password length"](#refinement-2-confirm-and-validate-password-length)
+      - [Refinement: 4. Confirm and validate "password character types"](#refinement-4-confirm-and-validate-password-character-types)
+      - [Refinement: 6. Generate "password generated"](#refinement-6-generate-password-generated)
+    - [Sequence Diagram](#sequence-diagram)
     - [Built with](#built-with)
     - [What I learned](#what-i-learned)
+      - [Generate random strings](#generate-random-strings)
+      - [StartUML - Activity Diagram](#startuml---activity-diagram)
+      - [StartUML -  Sequence Diagram](#startuml----sequence-diagram)
     - [Continued development](#continued-development)
     - [Useful resources](#useful-resources)
   - [Author](#author)
@@ -41,11 +52,95 @@ The password can include special characters. If you’re unfamiliar with these, 
 
 First, I went through a design phase of the data flow, pseudocode, and modelling the activity and sequence diagrams of the application in UML.
 
-![Password Generator activity diagram](./assets/../docs/assets/generate-password-activity-diagram.svg)
+You can check further details about the application design at the [software design document](./docs/software-design.md).
 
-![Password Generator sequence diagram](./assets/../docs/assets/generate-password-sequence-diagram.svg)
+### Data Flow Analysis
 
-You can check further details about the application design details at the [software design document](./assets/../docs/software-design.md).
+| Inputs | Processes | Outputs |
+| ----------- | ----------- | ----------- |
+| Length | Validate length between 10 and 64 characters | Password generated matching the chosen criteria
+| Character types | Validate at least one charater type is selected |
+
+### Activity Diagram
+
+![Password Generator Activity Diagram](./docs/assets/generate-password-activity-diagram.svg)
+
+### Pseudocode
+
+#### Main workflow
+
+```
+Precondition. Receive a "Generate Password" event
+
+1. Set "password length" to zero (0)
+
+2. Confirm and validate "password length" user input
+
+3. Initialise "password character types" as empty
+
+4. Confirm and validate "password character types" user input
+
+5. Initialise "password generated" as empty                         
+
+6. Generate "password generated" with lenght and character types user's inputs
+
+7. Output "password generated" 
+```
+
+#### Refinement: 2. Confirm and validate "password length"
+
+```
+2. While "password length" is not between 10 and 64 characters
+
+  2.1 Get "password length" user's input
+
+2. End While "password length"
+```
+
+#### Refinement: 4. Confirm and validate "password character types"
+
+```
+4. While "password characters" is empty
+
+  4.1 Get "special characters" user's confirmation
+  4.2 If user wants to include "special characters"
+    4.2.1 Include "special characters" into "password characters"
+  4.2 End If "special characters"
+
+  4.3 Get "numeric characters" user's confirmation
+  4.4 If user wants to include "numeric characters"
+    4.4.1 Include "special characters" into "password characters"
+  4.4 End If "numeric characters"
+
+  4.5 Get "lower cased characters" user's confirmation
+  4.6 If user wants to include "lower cased characters"
+    4.6.1 Include "lower cased characters" into "password characters"
+  4.6 End If "lower cased characters"
+
+  4.7 Get "upper cased characters" user's confirmation
+  4.8 If user wants to include "upper cased characters"
+    4.8.1 Include "upper cased characters" into "password characters"
+  4.8 End If "upper cased characters"
+
+4. End While "password characters"
+```
+#### Refinement: 6. Generate "password generated"
+
+```
+6. While the length of "password generated" is not equal to "password length"
+
+  6.1 Generate a random "index" between 0 and "password length" - 1
+
+  6.2 Gets "character" in "password character types" at "index"
+
+  6.3 Concatenate "character" into "password generatd"
+
+6. End While "password generated"
+```
+### Sequence Diagram
+
+![Password Generator Sequence Diagram](./docs/assets/generate-password-sequence-diagram.svg)
+
 
 ### Built with
 
@@ -56,35 +151,239 @@ You can check further details about the application design details at the [softw
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+#### Generate random strings
 
-To see how you can add code snippets, see below:
+- Use math concepts to generate random strings.
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-
-```css
-.proud-of-this-css {
-  color: papayawhip;
+```js
+/**
+ * Function for getting a random element from an array.
+ * 
+ * @param {Array} arr 
+ *    The array of character types.
+ * @returns {String}
+ *    A randomly character type from arr.
+ */
+function getRandom(arr) {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
 }
 ```
 
-```js
-const proudOfThisFunc = () => {
-  console.log("🎉");
-};
+- Learnt PlantUML to generate activity and sequence diagrams in UML.
+
+#### StartUML - Activity Diagram
+
+```uml
+@startuml
+start
+
+:Click on **Generate Password**>
+
+partition "Input Interface" {
+
+  repeat :Wait ""password length"" input ?
+
+    :Save ""password length""|
+
+  repeat while (Is ""password length"" 10 to 64 characters ?) is (No)
+  ->Yes;
+
+  :Set ""password characters"" empty;
+
+  while (Check ""password characters"" ?) is (Empty)
+
+    if (Include ""special characters"" ?) then (Yes)
+      :Add ""special characters"" into ""password characters"";
+    else (No)
+    endif
+
+    if (Include ""numeric characters"" ?) then (Yes)
+      :Add ""numeric characters"" into ""password characters"";
+    else (No)
+    endif
+
+    if (Include ""lower cased characters"" ?) then (Yes)
+      :Add ""lower cased characters"" into ""password characters"";
+    else (No)
+    endif
+
+    if (Include ""upper cased characters"" ?) then (Yes)
+      :Add ""upper cased characters"" into ""password characters"";
+    else (No)
+    endif
+
+    :Save ""password characters""|
+
+  endwhile (Not Empty)
+
+}
+
+partition "Output Interface" {
+
+  :Set ""password"" empty|
+
+  while (Check length of ""password"" ?) is (Not **password length**)
+
+    :Next random ""index"";
+
+    :Get ""character"" from ""password characters"" at ""index"";
+
+    :Concatenate ""character"" into ""password"";
+
+    :Save ""password""|
+
+  endwhile (Is **password length**)
+
+}
+
+:Output **password**<
+
+stop
+@enduml
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+#### StartUML -  Sequence Diagram
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```uml
+@startuml
+actor User
+participant ":WebBrowser"
+participant ":Application"
+
+User->":WebBrowser": Click Generate Password
+activate User
+activate ":WebBrowser"
+
+== Input Interface ==
+
+":WebBrowser"-->"<< javascript >>\n:Event" **: << event >>
+":Application"<-"<< javascript >>\n:Event": << bind >>
+activate ":Application"
+destroy "<< javascript >>\n:Event"
+
+":Application"-->"<< javascript >>\n:PasswordOptions" **: << create >>
+
+group getPasswordOptions()
+  loop password length not between 10 and 64
+    ":WebBrowser"<--":Application": Request password length 
+    User<--":WebBrowser": << prompt window >>
+    User->":WebBrowser": Input password length
+    ":WebBrowser"->":Application": password length
+  end
+
+  ":Application"->"<< javascript >>\n:PasswordOptions": << store >> \n password length
+
+  loop no character types chosen
+
+    ":WebBrowser"<--":Application": Include special characters ?
+    User<--":WebBrowser": << confirm window >>
+    User->":WebBrowser": Press confirm option
+    ":WebBrowser"->":Application": special characters flag
+
+    alt special characters flag is True
+      ":Application"->"<< javascript >>\n:PasswordOptions": << store >> \n special characters
+    end
+
+    ":WebBrowser"<--":Application": Include numeric characters ?
+    User<--":WebBrowser": << confirm window >>
+    User->":WebBrowser": Press confirm option
+    ":WebBrowser"->":Application": numeric characters flag
+
+    alt numeric characters flag is True
+      ":Application"->"<< javascript >>\n:PasswordOptions": << store >> \n numeric characters
+    end
+
+    ":WebBrowser"<--":Application": Include lower cased characters ?
+    User<--":WebBrowser": << confirm window >>
+    User->":WebBrowser": Press confirm option
+    ":WebBrowser"->":Application": lower cased characters flag
+
+    alt lower cased characters flag is True
+      ":Application"->"<< javascript >>\n:PasswordOptions": << store >> \n lower cased characters
+    end
+
+    ":WebBrowser"<--":Application": Include upper cased characters ?
+    User<--":WebBrowser": << confirm window >>
+    User->":WebBrowser": Press confirm option
+    ":WebBrowser"->":Application": upper cased characters flag
+
+    alt upper cased characters flag is True
+      ":Application"->"<< javascript >>\n:PasswordOptions": << store >> \n upper cased characters
+    end
+
+  end
+end
+
+== Output Interface ==
+
+":Application"-->"<< javascript >>\n:Password" **: << create >>
+
+group generatePassword()
+
+  ":Application"<--"<< javascript >>\n:PasswordOptions": passwordLength
+
+  loop password.length < passwordLength times
+
+    group getRandom()
+
+      ":Application"->"<< javascript >>\n:Math" **: random()
+      "<< javascript >>\n:PasswordOptions"->"<< javascript >>\n:Math": characterTypes.length
+      ":Application"->"<< javascript >>\n:Math": floor()
+
+      "<< javascript >>\n:PasswordOptions"<--"<< javascript >>\n:Math": index
+      note right
+        **Math.floor( Math.random() * (characterTypes.length) )**
+        returns a **random index** 
+        between 0 and (characterTypes.length - 1)
+      end note
+    end
+
+    destroy "<< javascript >>\n:Math"
+
+    "<< javascript >>\n:Password"<--"<< javascript >>\n:PasswordOptions": characterType
+    note right
+      **characterTypes[index]**
+      returns a **characterType** 
+      from characterTypes at the index position
+    end note
+
+    ":Application"->"<< javascript >>\n:Password": concat()
+    ":Application"<--"<< javascript >>\n:Password": password.length
+
+  end
+end
+
+group writePassword()
+
+  ":WebBrowser"<-":Application": Request #password element
+  ":WebBrowser"-->"<< javascript >>\n:DOM" **: << create >>
+
+  "<< javascript >>\n:Password"->"<< javascript >>\n:DOM": password
+  note right
+    **passwordText.value = password**
+    stores generated password into the DOM container
+  end note
+
+  ":Application"<--"<< javascript >>\n:DOM": passwordText element
+end
+
+":WebBrowser"<--":Application": Refresh #password element
+
+User<--":WebBrowser": Display password generated
+
+deactivate ":Application"
+deactivate ":WebBrowser"
+deactivate User
+@enduml
+
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+- Implement UX improvements to integrate the password option in the UI, so the user can set the password length and character types on the web page.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+- Improve the test coverage of the code implementing unit and functional tests.
 
 ### Useful resources
 
@@ -99,6 +398,4 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ## Acknowledgments
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+The teacher and TAs that help us with resources and support to my questions during the development of this challenge.
